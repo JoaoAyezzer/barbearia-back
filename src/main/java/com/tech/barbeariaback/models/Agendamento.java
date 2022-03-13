@@ -1,22 +1,43 @@
 package com.tech.barbeariaback.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tech.barbeariaback.models.enums.StatusAgendamento;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class Agendamento implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date dataInicial;
+    @Column
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date dataFinal;
-    private Cliente cliente;
-    private Integer statusAgendamento;
-    private Servico servico;
-    private Pagamento pagamento;
+    @Column
+    private Integer status;
+    @Column
     private Double valor;
+    @ManyToOne
+    @JoinColumn(name = "CLIENTE_ID")
+    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "PROFISSIONAL_ID")
+    private FuncionarioComissionado profissional;
+    @ManyToOne
+    @JoinColumn(name = "SERVICO_ID")
+    private Servico servico;
+    @OneToOne
+    @JoinColumn(name = "PAGAMENTO_ID")
+    private Pagamento pagamento;
+    @ManyToMany
+    @JoinTable(name = "PRODUTO_AGENDAMENTO", joinColumns = @JoinColumn(name = "agendamento_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
     private List<Produto> produtos;
 
     public Agendamento() {
@@ -27,7 +48,7 @@ public class Agendamento implements Serializable {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.cliente = cliente;
-        this.statusAgendamento = statusAgendamento.getCod();
+        this.status = statusAgendamento.getCod();
         this.servico = servico;
         this.pagamento = pagamento;
         this.valor = valor;
@@ -66,11 +87,11 @@ public class Agendamento implements Serializable {
     }
 
     public StatusAgendamento getStatusAgendamento() {
-        return StatusAgendamento.toEnum(this.statusAgendamento);
+        return StatusAgendamento.toEnum(this.status);
     }
 
     public void setStatusAgendamento(StatusAgendamento statusAgendamento) {
-        this.statusAgendamento = statusAgendamento.getCod();
+        this.status = statusAgendamento.getCod();
     }
 
     public Servico getServico() {
@@ -125,7 +146,7 @@ public class Agendamento implements Serializable {
                 ", dataInicial=" + dataInicial +
                 ", dataFinal=" + dataFinal +
                 ", cliente=" + cliente +
-                ", statusAgendamento=" + statusAgendamento +
+                ", statusAgendamento=" + status +
                 ", servico=" + servico +
                 ", pagamento=" + pagamento +
                 ", valor=" + valor +

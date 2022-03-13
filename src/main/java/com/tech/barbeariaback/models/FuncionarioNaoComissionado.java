@@ -1,13 +1,18 @@
 package com.tech.barbeariaback.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.tech.barbeariaback.models.enums.PerfilUsuario;
 
+import javax.persistence.Entity;
 import java.util.Date;
-
-public class FuncionarioNaoComissionado extends Funcionario{
+@Entity
+@JsonTypeName("FUNCIONARIO_NAO_COMISSIONADO")
+public class FuncionarioNaoComissionado extends Usuario{
     private static final long serialVersionUID = 1L;
 
     private Double salario;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date dataPagamento;
 
     public FuncionarioNaoComissionado(){

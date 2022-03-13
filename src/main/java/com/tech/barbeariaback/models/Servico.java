@@ -3,19 +3,25 @@ package com.tech.barbeariaback.models;
 
 import com.tech.barbeariaback.models.enums.DiasDaSemana;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import java.util.*;
+@Entity
 public class Servico implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String nome;
+    @Column
     private Double valor;
+    @Column
     private Integer tempoEmMinutos;
-    private List<Integer> diasDeAtendimento;
+    @ElementCollection
+    @CollectionTable(name = "DIAS_ATENDIMENTO")
+    private Set<Integer> diasDeAtendimento = new HashSet<>();
+    @OneToMany(mappedBy = "servico")
     private List<Agendamento> agendamentos = new ArrayList<>();
 
     public Servico() {
@@ -61,13 +67,13 @@ public class Servico implements Serializable {
         this.tempoEmMinutos = tempoEmMinutos;
     }
 
-    public List<DiasDaSemana> getDiasDeAtendimento() {
-        List<DiasDaSemana> listDiasDaSemana = new ArrayList<>();
+    public Set<DiasDaSemana> getDiasDeAtendimento() {
+        Set<DiasDaSemana> listDiasDaSemana = new HashSet<>();
         this.diasDeAtendimento.stream().forEach(dia -> listDiasDaSemana.add(DiasDaSemana.toEnum(dia)));
         return listDiasDaSemana;
     }
 
-    public void setDiasDeAtendimento(List<DiasDaSemana> diasDeAtendimento) {
+    public void setDiasDeAtendimento(Set<DiasDaSemana> diasDeAtendimento) {
         diasDeAtendimento.stream().forEach(dia -> this.diasDeAtendimento.add(dia.getCod()));
     }
 

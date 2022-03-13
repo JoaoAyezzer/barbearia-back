@@ -1,16 +1,28 @@
 package com.tech.barbeariaback.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class TipoPagamento implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column
     private Float taxaRecebimento;
+    @Column
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date prazoRecebimento;
+    @Column
+    @OneToMany(mappedBy = "tipoPagamento")
+    private List<Pagamento> pagamentos;
 
     public TipoPagamento() {
     }

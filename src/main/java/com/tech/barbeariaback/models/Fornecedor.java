@@ -1,17 +1,23 @@
 package com.tech.barbeariaback.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class Fornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String nome;
+    @Column
     private String telefone;
+    @Column
     private String email;
+    @OneToMany(mappedBy = "fornecedor")
     private List<Produto> produtos = new ArrayList<>();
 
     public Fornecedor() {
