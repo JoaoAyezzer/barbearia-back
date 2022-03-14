@@ -21,10 +21,9 @@ public class Cliente extends Usuario {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario) {
-        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario);
+    public Cliente(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, String telefone) {
+        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario, telefone);
     }
-
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
     }

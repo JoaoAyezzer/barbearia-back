@@ -7,19 +7,19 @@ import com.tech.barbeariaback.models.enums.PerfilUsuario;
 import javax.persistence.Entity;
 import java.util.Date;
 @Entity
-@JsonTypeName("FUNCIONARIO_NAO_COMISSIONADO")
-public class FuncionarioNaoComissionado extends Usuario{
+@JsonTypeName("FUNCIONARIO")
+public class Funcionario extends Usuario{
     private static final long serialVersionUID = 1L;
 
     private Double salario;
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date dataPagamento;
 
-    public FuncionarioNaoComissionado(){
+    public Funcionario(){
 
     }
-    public FuncionarioNaoComissionado(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, Double salario, Date dataPagamento) {
-        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario);
+    public Funcionario(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, Double salario, Date dataPagamento, String telefone) {
+        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario, telefone);
         this.salario = salario;
         this.dataPagamento = dataPagamento;
     }

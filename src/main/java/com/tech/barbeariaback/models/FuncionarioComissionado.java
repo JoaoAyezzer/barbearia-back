@@ -27,8 +27,8 @@ public class FuncionarioComissionado extends Usuario {
     public FuncionarioComissionado() {
 
     }
-    public FuncionarioComissionado(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, Float percentualComissao, Date dataInicialComissao, Date dataFinalComissao, Double valorReceber) {
-        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario);
+    public FuncionarioComissionado(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, Float percentualComissao, Date dataInicialComissao, Date dataFinalComissao, Double valorReceber, String telefone) {
+        super(id, nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario, telefone);
         this.percentualComissao = percentualComissao;
         this.dataInicialComissao = dataInicialComissao;
         this.dataFinalComissao = dataFinalComissao;

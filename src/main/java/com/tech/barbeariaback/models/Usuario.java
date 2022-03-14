@@ -30,9 +30,8 @@ public class Usuario implements Serializable {
     private Date dataCadastro;
     @Column
     private Integer perfilDeUsuario;
-    @ElementCollection
-    @CollectionTable(name = "TELEFONES")
-    private Set<Integer> telefones = new HashSet<>();
+    @Column
+    private String telefone;
 
 
 
@@ -40,7 +39,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario) {
+    public Usuario(Long id,String nome, String email, String senha, Date dataNasc, Date dataCadastro, PerfilUsuario perfilDeUsuario, String telefone) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -48,6 +47,7 @@ public class Usuario implements Serializable {
         this.dataNasc = dataNasc;
         this.dataCadastro = dataCadastro;
         this.perfilDeUsuario = perfilDeUsuario.getCod();
+        this.telefone = telefone;
     }
 
     public Long getId() {
@@ -106,6 +106,14 @@ public class Usuario implements Serializable {
         this.perfilDeUsuario = perfilDeUsuario.getCod();
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,6 +137,7 @@ public class Usuario implements Serializable {
                 ", dataNasc=" + dataNasc +
                 ", dataCadastro=" + dataCadastro +
                 ", perfilDeUsuario=" + perfilDeUsuario +
+                ", telefone=" + telefone +
                 '}';
     }
 }

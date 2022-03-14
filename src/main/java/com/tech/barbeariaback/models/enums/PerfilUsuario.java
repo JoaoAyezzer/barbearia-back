@@ -3,9 +3,9 @@ package com.tech.barbeariaback.models.enums;
 
 public enum PerfilUsuario {
 
-    ADMIN(1, "Perfil de administrador"),
-    FUNCIONARIO_PADRO(2, "Perfil de Funcionario padrao"),
-    CLIENTE(3, "Perfil de cliente");
+    ADMIN(1, "ROLE_ADMIN"),
+    FUNCIONARIO(2, "ROLE_FUNCIONARIO"),
+    CLIENTE(3, "ROLE_CLIENTE");
 
     private int cod;
     private String descricao;
