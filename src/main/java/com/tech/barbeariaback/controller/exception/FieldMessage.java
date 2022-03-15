@@ -1,4 +1,5 @@
 package com.tech.barbeariaback.controller.exception;
+
 import java.io.Serializable;
 
 public class FieldMessage implements Serializable {

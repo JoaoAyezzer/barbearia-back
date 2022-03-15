@@ -1,6 +1,4 @@
 package com.tech.barbeariaback.controller.exception;
-import javax.servlet.http.HttpServletRequest;
-
 
 import com.amazonaws.services.applicationautoscaling.model.ObjectNotFoundException;
 import com.tech.barbeariaback.service.exceptions.AuthorizationException;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @ControllerAdvice

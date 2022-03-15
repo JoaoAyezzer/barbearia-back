@@ -1,5 +1,6 @@
 package com.tech.barbeariaback.controller.exception;
 
+
 import java.io.Serializable;
 
 public class StandardError implements Serializable {

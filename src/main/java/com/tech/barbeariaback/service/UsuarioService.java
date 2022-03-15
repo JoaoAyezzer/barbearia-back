@@ -19,12 +19,13 @@ public class UsuarioService {
     public List<Usuario> findAll(){
         return repository.findAll();
     }
+
     public List<Usuario> findAllByPerfil(String perfilUsuario) {
-        PerfilUsuario perfil = null;
+        Integer perfil = 0;
         if (perfilUsuario.equalsIgnoreCase("clientes")){
-            perfil = PerfilUsuario.CLIENTE;
+            perfil = PerfilUsuario.CLIENTE.getCod();
         }else if (perfilUsuario.equalsIgnoreCase("funcionarios")){
-            perfil = PerfilUsuario.FUNCIONARIO;
+            perfil = PerfilUsuario.FUNCIONARIO.getCod();
         }else{
             throw new DataIntegrityException( "Url invalida, Verifique e tente novamente ");
         }
