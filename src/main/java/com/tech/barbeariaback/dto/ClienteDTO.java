@@ -22,8 +22,7 @@ public class ClienteDTO implements Serializable {
     @Email
     @NotEmpty(message = "Email não pode ser vazio")
     private  String email;
-    @JsonIgnore
-    @NotNull(message = "Senha não pode ser vazia")
+    @NotEmpty(message = "Senha não pode ser vazia")
     private  String senha;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private  Date dataNasc;

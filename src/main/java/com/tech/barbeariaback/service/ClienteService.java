@@ -35,18 +35,8 @@ public class ClienteService {
                 passwordEncoder.encode(clienteDto.getSenha()),
                 clienteDto.getDataNasc(),
                 dataCadastro,
-                clienteDto.getPerfilDeUsuario().getCod(),
+                PerfilUsuario.CLIENTE.getCod(),
                 clienteDto.getTelefone());
     }
-    public Cliente usuarioFromCliente(Usuario usuario){
-        Date dataCadastro = new Date();
-        return new Cliente(
-                usuario.getNome(),
-                usuario.getEmail(),
-                passwordEncoder.encode(usuario.getSenha()),
-                usuario.getDataNasc(),
-                dataCadastro,
-                usuario.getPerfilDeUsuario().getCod(),
-                usuario.getTelefone());
-    }
+
 }

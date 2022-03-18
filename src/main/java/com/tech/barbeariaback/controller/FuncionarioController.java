@@ -1,10 +1,9 @@
 package com.tech.barbeariaback.controller;
 
-import com.amazonaws.Response;
-import com.tech.barbeariaback.dto.ClienteDTO;
-import com.tech.barbeariaback.models.Cliente;
+import com.tech.barbeariaback.dto.FuncionarioDTO;
+import com.tech.barbeariaback.models.Funcionario;
 import com.tech.barbeariaback.models.Usuario;
-import com.tech.barbeariaback.service.ClienteService;
+import com.tech.barbeariaback.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +14,23 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "clientes")
-public class ClienteController {
+@RequestMapping(value = "funcionarios")
+public class FuncionarioController {
+
     @Autowired
-    private ClienteService clienteService;
+    private FuncionarioService funcionarioService;
 
     @GetMapping
     public ResponseEntity< List<Usuario> > findAll(){
-        return ResponseEntity.ok().body(clienteService.findAll());
+        return ResponseEntity.ok().body(funcionarioService.findAll());
     }
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO){
-        Cliente cliente = clienteService.fromDTO(clienteDTO);
-        cliente = clienteService.insert(cliente);
+    public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
+        Funcionario funcionario = funcionarioService.fromDTO(funcionarioDTO);
+        funcionario = funcionarioService.insert(funcionario);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(cliente.getId())
+                .buildAndExpand(funcionario.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }

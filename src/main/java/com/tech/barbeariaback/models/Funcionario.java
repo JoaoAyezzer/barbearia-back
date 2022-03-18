@@ -1,9 +1,6 @@
 package com.tech.barbeariaback.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.tech.barbeariaback.models.enums.PerfilUsuario;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +9,6 @@ import javax.persistence.Entity;
 import java.util.Date;
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "funcionarios")
 @JsonTypeName("funcionario")
 public class Funcionario extends Usuario{
@@ -20,7 +16,12 @@ public class Funcionario extends Usuario{
     @Column
     private Double salario;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
-    private Date dataPagamento;
+    private Double consumo;
+
+    public Funcionario(String nome, String email, String senha, Date dataNasc, Date dataCadastro, Integer perfilDeUsuario, String telefone, Double salario, Double consumo) {
+        super(nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario, telefone);
+        this.salario = salario;
+        this.consumo = consumo;
+    }
 
 }

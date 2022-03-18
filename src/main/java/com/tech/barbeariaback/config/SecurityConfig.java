@@ -26,11 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JWTUtil jwtUtil;
 
     private static final String[] PUBLIC_MATCHERS_GET = {
-            "/clientes/**"
+            "/clientes/**",
+            "/funcionarios/**",
     };
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/auth/forgot/**",
-            "/clientes/**"
+            "/clientes/**",
+            "/funcionarios/**",
     };
 
     public SecurityConfig() {
