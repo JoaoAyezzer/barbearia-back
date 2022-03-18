@@ -1,5 +1,6 @@
 package com.tech.barbeariaback.repositories;
 
+import com.tech.barbeariaback.models.Cliente;
 import com.tech.barbeariaback.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
