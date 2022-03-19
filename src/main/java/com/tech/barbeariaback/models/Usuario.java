@@ -41,6 +41,8 @@ public class Usuario implements Serializable {
     private Integer perfilDeUsuario;
     @Column
     private String telefone;
+    @Column
+    private String urlAvatar;
 
     public PerfilUsuario getPerfilDeUsuario() {
         return PerfilUsuario.toEnum(this.perfilDeUsuario);

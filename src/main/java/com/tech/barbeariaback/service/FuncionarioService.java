@@ -1,8 +1,6 @@
 package com.tech.barbeariaback.service;
 
-import com.tech.barbeariaback.dto.ClienteDTO;
 import com.tech.barbeariaback.dto.FuncionarioDTO;
-import com.tech.barbeariaback.models.Cliente;
 import com.tech.barbeariaback.models.Funcionario;
 import com.tech.barbeariaback.models.Usuario;
 import com.tech.barbeariaback.models.enums.PerfilUsuario;
@@ -23,7 +21,7 @@ public class FuncionarioService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public List<Usuario> findAll(){
-        return repository.findAllByPerfilDeUsuario(PerfilUsuario.FUNCIONARIO.getCod());
+        return repository.findAllByPerfilDeUsuario(PerfilUsuario.ADMIN.getCod());
     }
 
     public Funcionario insert(Funcionario funcionario){

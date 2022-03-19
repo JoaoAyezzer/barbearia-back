@@ -36,7 +36,7 @@ public class Agendamento implements Serializable {
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "PROFISSIONAL_ID")
-    private FuncionarioComissionado profissional;
+    private Barbeiro profissional;
     @ManyToOne
     @JoinColumn(name = "SERVICO_ID")
     private Servico servico;
