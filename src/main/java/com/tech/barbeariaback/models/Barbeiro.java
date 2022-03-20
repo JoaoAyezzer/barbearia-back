@@ -15,8 +15,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "funcionarios_comissionados")
-@JsonTypeName("funcionario_comissionado")
+@Entity(name = "barbeiro")
+@JsonTypeName("barbeiro")
 public class Barbeiro extends Usuario {
     private static final long serialVersionUID = 1L;
     @Column

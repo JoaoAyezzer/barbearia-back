@@ -15,4 +15,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Transactional(readOnly = true)
     List<Usuario> findAllByPerfilDeUsuario(Integer perfil);
 
+
 }

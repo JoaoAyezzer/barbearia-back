@@ -60,4 +60,5 @@ public class Usuario implements Serializable {
         this.perfilDeUsuario = perfilDeUsuario;
         this.telefone = telefone;
     }
+
 }

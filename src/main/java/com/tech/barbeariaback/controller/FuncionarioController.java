@@ -6,6 +6,7 @@ import com.tech.barbeariaback.models.Usuario;
 import com.tech.barbeariaback.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,11 +22,17 @@ public class FuncionarioController {
     private FuncionarioService funcionarioService;
 
     @GetMapping
-    public ResponseEntity< List<Usuario> > findAll(){
+    public ResponseEntity< List<Usuario> >findAll(){
         return ResponseEntity.ok().body(funcionarioService.findAll());
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Usuario>findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(funcionarioService.findById(id));
+    }
+
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
+    public ResponseEntity<Void>insert(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
         Funcionario funcionario = funcionarioService.fromDTO(funcionarioDTO);
         funcionario = funcionarioService.insert(funcionario);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -33,6 +40,18 @@ public class FuncionarioController {
                 .buildAndExpand(funcionario.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void>update(@Valid @RequestBody FuncionarioDTO funcionarioDTO, @PathVariable Long id){
+        Funcionario funcionario = funcionarioService.fromDTO(funcionarioDTO);
+        funcionarioService.update(id, funcionario);
+        return ResponseEntity.noContent().build();
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        funcionarioService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

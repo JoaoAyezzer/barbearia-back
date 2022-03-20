@@ -6,6 +6,7 @@ import com.tech.barbeariaback.models.Usuario;
 import com.tech.barbeariaback.service.BarbeiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,16 +15,24 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "barbeiros")
+@RequestMapping(value = "funcionarios")
 public class BarbeiroController {
+
     @Autowired
     private BarbeiroService barbeiroService;
 
-    @GetMapping
+    @GetMapping(value = "/barbeiros")
     public ResponseEntity< List<Usuario> > findAll(){
         return ResponseEntity.ok().body(barbeiroService.findAll());
     }
-    @PostMapping
+
+    @PutMapping(value = "/barbeiros/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody BarbeiroDTO barbeiroDTO){
+        Barbeiro barbeiro = barbeiroService.fromDTO(barbeiroDTO);
+        barbeiroService.update(id, barbeiro);
+        return ResponseEntity.noContent().build();
+    }
+    @PostMapping(value = "/barbeiros")
     public ResponseEntity<Void> insert(@Valid @RequestBody BarbeiroDTO barbeiroDTO){
         Barbeiro barbeiro = barbeiroService.fromDTO(barbeiroDTO);
         barbeiro = barbeiroService.insert(barbeiro);
@@ -32,6 +41,12 @@ public class BarbeiroController {
                 .buildAndExpand(barbeiro.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping(value = "/barbeiros/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        barbeiroService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
