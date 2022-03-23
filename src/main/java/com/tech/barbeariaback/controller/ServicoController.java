@@ -1,11 +1,7 @@
 package com.tech.barbeariaback.controller;
 
-import com.tech.barbeariaback.dto.BarbeiroDTO;
 import com.tech.barbeariaback.dto.ServicoDTO;
-import com.tech.barbeariaback.models.Barbeiro;
 import com.tech.barbeariaback.models.Servico;
-import com.tech.barbeariaback.models.Usuario;
-import com.tech.barbeariaback.service.BarbeiroService;
 import com.tech.barbeariaback.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

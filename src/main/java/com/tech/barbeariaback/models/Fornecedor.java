@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "fornecedores")
 public class Fornecedor implements Serializable {
@@ -30,4 +29,10 @@ public class Fornecedor implements Serializable {
     @OneToMany(mappedBy = "fornecedor")
     private List<Produto> produtos = new ArrayList<>();
 
+    public Fornecedor(Long id, String nome, String telefone, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+    }
 }
