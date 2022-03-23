@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "servicos")
 public class Servico implements Serializable {
@@ -29,15 +29,14 @@ public class Servico implements Serializable {
     @CollectionTable(name = "DIAS_ATENDIMENTO")
     private Set<Integer> diasDeAtendimento = new HashSet<>();
     @OneToMany(mappedBy = "servico")
-    private List<Agendamento> agendamentos = new ArrayList<>();
+    private List<Agendamento> agendamentos;
 
-    public Set<DiasDaSemana> getDiasDeAtendimento() {
-        Set<DiasDaSemana> listDiasDaSemana = new HashSet<>();
-        this.diasDeAtendimento.stream().forEach(dia -> listDiasDaSemana.add(DiasDaSemana.toEnum(dia)));
-        return listDiasDaSemana;
-    }
 
-    public void setDiasDeAtendimento(Set<DiasDaSemana> diasDeAtendimento) {
-        diasDeAtendimento.stream().forEach(dia -> this.diasDeAtendimento.add(dia.getCod()));
+
+    public Servico(Long id, String nome, Double valor, Integer tempoEmMinutos) {
+        this.id = id;
+        this.nome = nome;
+        this.valor = valor;
+        this.tempoEmMinutos = tempoEmMinutos;
     }
 }

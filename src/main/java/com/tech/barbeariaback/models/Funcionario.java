@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Entity(name = "funcionarios")
-@JsonTypeName("funcionario")
 public class Funcionario extends Usuario{
     private static final long serialVersionUID = 1L;
     @Column

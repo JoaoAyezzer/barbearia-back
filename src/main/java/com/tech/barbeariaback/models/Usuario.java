@@ -18,7 +18,6 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy= InheritanceType.JOINED)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,10 +31,10 @@ public class Usuario implements Serializable {
     @JsonIgnore
     private String senha;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
     private Date dataNasc;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
     private Date dataCadastro;
     @Column
     private Integer perfilDeUsuario;

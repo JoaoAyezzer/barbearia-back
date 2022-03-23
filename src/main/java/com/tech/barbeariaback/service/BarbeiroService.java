@@ -5,8 +5,6 @@ import com.tech.barbeariaback.models.Barbeiro;
 import com.tech.barbeariaback.models.Usuario;
 import com.tech.barbeariaback.models.enums.PerfilUsuario;
 import com.tech.barbeariaback.repositories.UsuarioRepository;
-import com.tech.barbeariaback.security.UserSpringSecurity;
-import com.tech.barbeariaback.service.exceptions.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,15 +26,16 @@ public class BarbeiroService {
         return repository.findAllByPerfilDeUsuario(PerfilUsuario.BARBEIRO.getCod());
     }
 
-    public Barbeiro insert(Barbeiro barbeiro){
-        return repository.save(barbeiro);
+    public Barbeiro insert(BarbeiroDTO barbeiroDTO){
+        return repository.save(fromDTO(barbeiroDTO));
     }
 
-    public Barbeiro update(Long id, Barbeiro barbeiro){
+    public void update(Long id, BarbeiroDTO barbeiroDTO){
         funcionarioService.findById(id);
-        barbeiro.setId(id);
-        return repository.save(barbeiro);
+        barbeiroDTO.setId(id);
+        repository.save(fromDTO(barbeiroDTO));
     }
+
     public void delete(Long id) {
         funcionarioService.findById(id);
         repository.deleteById(id);

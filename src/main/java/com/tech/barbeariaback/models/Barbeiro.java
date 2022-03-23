@@ -16,16 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "barbeiro")
-@JsonTypeName("barbeiro")
 public class Barbeiro extends Usuario {
     private static final long serialVersionUID = 1L;
     @Column
     private Integer percentualComissao;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
     private Date dataInicialComissao;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
     private Date dataFinalComissao;
     @Column
     private Double valorReceber;
@@ -33,7 +32,16 @@ public class Barbeiro extends Usuario {
     @OneToMany(mappedBy = "profissional")
     private List<Agendamento> agendamentos = new ArrayList<>();
 
-    public Barbeiro(String nome, String email, String senha, Date dataNasc, Date dataCadastro, Integer perfilDeUsuario, String telefone, Integer percentualComissao, Date dataInicialComissao, Date dataFinalComissao) {
+    public Barbeiro(String nome,
+                    String email,
+                    String senha,
+                    Date dataNasc,
+                    Date dataCadastro,
+                    Integer perfilDeUsuario,
+                    String telefone,
+                    Integer percentualComissao,
+                    Date dataInicialComissao,
+                    Date dataFinalComissao) {
         super(nome, email, senha, dataNasc, dataCadastro, perfilDeUsuario, telefone);
         this.percentualComissao = percentualComissao;
         this.dataInicialComissao = dataInicialComissao;

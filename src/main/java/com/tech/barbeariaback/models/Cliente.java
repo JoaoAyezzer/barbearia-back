@@ -1,8 +1,6 @@
 package com.tech.barbeariaback.models;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.tech.barbeariaback.models.enums.PerfilUsuario;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity(name = "clientes")
-@JsonTypeName("cliente")
 public class Cliente extends Usuario {
     private static final long serialVersionUID = 1L;
     @OneToMany(mappedBy = "cliente")

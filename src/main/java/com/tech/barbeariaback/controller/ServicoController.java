@@ -1,9 +1,12 @@
 package com.tech.barbeariaback.controller;
 
 import com.tech.barbeariaback.dto.BarbeiroDTO;
+import com.tech.barbeariaback.dto.ServicoDTO;
 import com.tech.barbeariaback.models.Barbeiro;
+import com.tech.barbeariaback.models.Servico;
 import com.tech.barbeariaback.models.Usuario;
 import com.tech.barbeariaback.service.BarbeiroService;
+import com.tech.barbeariaback.service.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,35 +18,39 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "funcionarios")
-public class BarbeiroController {
+@RequestMapping(value = "/servicos")
+public class ServicoController {
 
     @Autowired
-    private BarbeiroService barbeiroService;
+    private ServicoService servicoService;
 
-    @GetMapping(value = "/barbeiros")
-    public ResponseEntity< List<Usuario> > findAll(){
-        return ResponseEntity.ok().body(barbeiroService.findAll());
+    @GetMapping
+    public ResponseEntity< List<ServicoDTO> > findAll(){
+        return ResponseEntity.ok().body(servicoService.findAll());
+    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Servico> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(servicoService.findById(id));
     }
 
-    @PutMapping(value = "/barbeiros/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody BarbeiroDTO barbeiroDTO){
-        barbeiroService.update(id, barbeiroDTO);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody ServicoDTO servicoDTO){
+        servicoService.update(id, servicoDTO);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping(value = "/barbeiros")
-    public ResponseEntity<Void> insert(@Valid @RequestBody BarbeiroDTO barbeiroDTO){
-       Barbeiro barbeiro = barbeiroService.insert(barbeiroDTO);
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ServicoDTO servicoDTO){
+       Servico servico = servicoService.create(servicoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(barbeiro.getId())
+                .buildAndExpand(servico.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @DeleteMapping(value = "/barbeiros/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        barbeiroService.delete(id);
+        servicoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

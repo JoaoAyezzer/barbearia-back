@@ -33,20 +33,20 @@ public class FuncionarioController {
 
     @PostMapping
     public ResponseEntity<Void>insert(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
-        Funcionario funcionario = funcionarioService.fromDTO(funcionarioDTO);
-        funcionario = funcionarioService.insert(funcionario);
+        Funcionario funcionario = funcionarioService.insert(funcionarioDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(funcionario.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void>update(@Valid @RequestBody FuncionarioDTO funcionarioDTO, @PathVariable Long id){
-        Funcionario funcionario = funcionarioService.fromDTO(funcionarioDTO);
-        funcionarioService.update(id, funcionario);
+        funcionarioService.update(id, funcionarioDTO);
         return ResponseEntity.noContent().build();
     }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

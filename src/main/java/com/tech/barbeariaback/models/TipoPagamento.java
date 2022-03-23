@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class TipoPagamento implements Serializable {
     @Column
     private Float taxaRecebimento;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
     private Date prazoRecebimento;
     @Column
     @OneToMany(mappedBy = "tipoPagamento")

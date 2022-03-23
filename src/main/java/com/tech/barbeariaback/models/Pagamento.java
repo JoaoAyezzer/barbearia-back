@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +24,7 @@ public class Pagamento implements Serializable {
     @Column
     private Double valorLiquido;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
     private Date dataRecebimento;
     @ManyToOne
     @JoinColumn(name = "tipo_pagamento_id")

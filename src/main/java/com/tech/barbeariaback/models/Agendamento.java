@@ -22,10 +22,10 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
     private Date dataInicial;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm",timezone = "America/Sao_Paulo")
     private Date dataFinal;
     @Column
     private Integer status;

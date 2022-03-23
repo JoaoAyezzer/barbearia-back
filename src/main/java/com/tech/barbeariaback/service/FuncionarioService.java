@@ -40,13 +40,13 @@ public class FuncionarioService {
                 "Objeto nao encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()
         ));
     }
-    public Funcionario update(Long id, Funcionario funcionario){
+    public void update(Long id, FuncionarioDTO funcionarioDTO){
         findById(id);
-        funcionario.setId(id);
-        return repository.save(funcionario);
+        funcionarioDTO.setId(id);
+        repository.save(fromDTO(funcionarioDTO));
     }
-    public Funcionario insert(Funcionario funcionario){
-        return repository.save(funcionario);
+    public Funcionario insert(FuncionarioDTO funcionarioDTO){
+        return repository.save(fromDTO(funcionarioDTO));
     }
 
     public void delete(Long id) {

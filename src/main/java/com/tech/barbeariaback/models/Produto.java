@@ -1,7 +1,6 @@
 package com.tech.barbeariaback.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.jdi.DoubleValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +31,7 @@ public class Produto implements Serializable {
     @Column
     private Integer QtdEmEstoque;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
     private Date dataCadastro;
     @Column
     private String marca;
