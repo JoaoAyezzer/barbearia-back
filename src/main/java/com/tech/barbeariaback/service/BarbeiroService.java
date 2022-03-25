@@ -26,7 +26,7 @@ public class BarbeiroService {
         return repository.findAllByPerfilDeUsuario(PerfilUsuario.BARBEIRO.getCod());
     }
 
-    public Barbeiro insert(BarbeiroDTO barbeiroDTO){
+    public Barbeiro create(BarbeiroDTO barbeiroDTO){
         return repository.save(fromDTO(barbeiroDTO));
     }
 

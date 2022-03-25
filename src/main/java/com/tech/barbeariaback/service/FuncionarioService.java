@@ -24,6 +24,10 @@ public class FuncionarioService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    public Funcionario create(FuncionarioDTO funcionarioDTO){
+        return repository.save(fromDTO(funcionarioDTO));
+    }
+
     public List<Usuario> findAll(){
         List<Usuario> admins = repository.findAllByPerfilDeUsuario(PerfilUsuario.ADMIN.getCod());
         List<Usuario> funcionarios = repository.findAllByPerfilDeUsuario(PerfilUsuario.FUNCIONARIO.getCod());
@@ -44,9 +48,6 @@ public class FuncionarioService {
         findById(id);
         funcionarioDTO.setId(id);
         repository.save(fromDTO(funcionarioDTO));
-    }
-    public Funcionario insert(FuncionarioDTO funcionarioDTO){
-        return repository.save(fromDTO(funcionarioDTO));
     }
 
     public void delete(Long id) {

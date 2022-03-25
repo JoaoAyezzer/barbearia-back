@@ -41,7 +41,7 @@ public class ClienteService {
         findById(id);
         repository.save(fromDTO(clienteDTO));
     }
-    public Cliente insert(ClienteDTO clienteDTO){
+    public Cliente create(ClienteDTO clienteDTO){
         return repository.save(fromDTO(clienteDTO));
     }
     public void delete(Long id){

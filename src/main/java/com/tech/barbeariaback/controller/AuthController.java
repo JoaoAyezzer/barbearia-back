@@ -20,15 +20,9 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private final JWTUtil jwtUtil;
-
+    private JWTUtil jwtUtil;
     @Autowired
-    private final AuthService authService;
-
-    public AuthController(JWTUtil jwtUtil, AuthService authService) {
-        this.jwtUtil = jwtUtil;
-        this.authService = authService;
-    }
+    private AuthService authService;
 
     @PostMapping(value = "/refresh_token")
     public ResponseEntity<Void> refreshToken(HttpServletResponse response){

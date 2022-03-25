@@ -20,10 +20,21 @@ public class ServicoController {
     @Autowired
     private ServicoService servicoService;
 
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ServicoDTO servicoDTO){
+        Servico servico = servicoService.create(servicoDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(servico.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @GetMapping
     public ResponseEntity< List<ServicoDTO> > findAll(){
         return ResponseEntity.ok().body(servicoService.findAll());
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Servico> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(servicoService.findById(id));
@@ -34,15 +45,7 @@ public class ServicoController {
         servicoService.update(id, servicoDTO);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ServicoDTO servicoDTO){
-       Servico servico = servicoService.create(servicoDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(servico.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
-    }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

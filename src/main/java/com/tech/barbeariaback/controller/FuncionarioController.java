@@ -21,6 +21,16 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService funcionarioService;
 
+    @PostMapping
+    public ResponseEntity<Void>create(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
+        Funcionario funcionario = funcionarioService.create(funcionarioDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(funcionario.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @GetMapping
     public ResponseEntity< List<Usuario> >findAll(){
         return ResponseEntity.ok().body(funcionarioService.findAll());
@@ -29,16 +39,6 @@ public class FuncionarioController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Usuario>findById(@PathVariable Long id){
         return ResponseEntity.ok().body(funcionarioService.findById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<Void>insert(@Valid @RequestBody FuncionarioDTO funcionarioDTO){
-        Funcionario funcionario = funcionarioService.insert(funcionarioDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(funcionario.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/{id}")

@@ -21,6 +21,16 @@ public class BarbeiroController {
     @Autowired
     private BarbeiroService barbeiroService;
 
+    @PostMapping(value = "/barbeiros")
+    public ResponseEntity<Void> create(@Valid @RequestBody BarbeiroDTO barbeiroDTO){
+        Barbeiro barbeiro = barbeiroService.create(barbeiroDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(barbeiro.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @GetMapping(value = "/barbeiros")
     public ResponseEntity< List<Usuario> > findAll(){
         return ResponseEntity.ok().body(barbeiroService.findAll());
@@ -31,15 +41,7 @@ public class BarbeiroController {
         barbeiroService.update(id, barbeiroDTO);
         return ResponseEntity.noContent().build();
     }
-    @PostMapping(value = "/barbeiros")
-    public ResponseEntity<Void> insert(@Valid @RequestBody BarbeiroDTO barbeiroDTO){
-       Barbeiro barbeiro = barbeiroService.insert(barbeiroDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(barbeiro.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
-    }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/barbeiros/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

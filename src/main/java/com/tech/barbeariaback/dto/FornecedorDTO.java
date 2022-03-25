@@ -1,7 +1,6 @@
 package com.tech.barbeariaback.dto;
 
 import com.tech.barbeariaback.models.Fornecedor;
-import com.tech.barbeariaback.models.Servico;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class FornecedorService {
     @Autowired
     private FornecedorRepository repository;
-
 
     public List<FornecedorDTO> findAll(){
         return repository.findAll()
@@ -24,7 +24,8 @@ public class FornecedorService {
     }
 
     public Fornecedor findById(Long id) {
-        return repository.findById(id).orElseThrow(
+        Optional<Fornecedor> fornecedor = repository.findById(id);
+        return fornecedor.orElseThrow(
                 () -> new ObjectNotfoundException("Serviço não encontrado")
         );
     }
@@ -51,6 +52,5 @@ public class FornecedorService {
                 fornecedorDTO.getTelefone(),
                 fornecedorDTO.getEmail());
     }
-
 
 }

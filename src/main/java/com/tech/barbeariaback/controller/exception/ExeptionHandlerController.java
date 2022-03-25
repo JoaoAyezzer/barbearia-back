@@ -1,9 +1,9 @@
 package com.tech.barbeariaback.controller.exception;
 
-import com.amazonaws.services.applicationautoscaling.model.ObjectNotFoundException;
 import com.tech.barbeariaback.service.exceptions.AuthorizationException;
 import com.tech.barbeariaback.service.exceptions.DataIntegrityException;
 import com.tech.barbeariaback.service.exceptions.FileException;
+import com.tech.barbeariaback.service.exceptions.ObjectNotfoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExeptionHandlerController {
 
-    @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(ObjectNotfoundException.class)
+    public ResponseEntity<StandardError> objectNotFound(ObjectNotfoundException e, HttpServletRequest request) {
 
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
