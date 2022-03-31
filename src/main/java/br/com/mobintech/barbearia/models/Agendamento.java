@@ -8,7 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -21,13 +23,17 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm", timezone = "America/Sao_Paulo")
-    private LocalDateTime dataHoraInicio;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private LocalDate data;
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm",timezone = "America/Sao_Paulo")
-    private LocalDateTime dataHoraFim;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern="HH:mm", timezone = "America/Sao_Paulo")
+    private LocalTime horaInicio;
+    @Column
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern="HH:mm", timezone = "America/Sao_Paulo")
+    private LocalTime horaFim;
     @Column
     private Integer status;
     @Column
@@ -41,8 +47,8 @@ public class Agendamento implements Serializable {
     @ManyToOne
     @JoinColumn(name = "SERVICO_ID")
     private Servico servico;
-    @OneToOne
-    @JoinColumn(name = "PAGAMENTO_ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PAGAMENTO_ID", referencedColumnName = "id")
     private Pagamento pagamento;
     @ManyToMany
     @JoinTable(name = "PRODUTO_AGENDAMENTO", joinColumns = @JoinColumn(name = "agendamento_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))
@@ -55,14 +61,16 @@ public class Agendamento implements Serializable {
         this.status = statusAgendamento.getCod();
     }
 
-    public Agendamento(Long id, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim, Integer status, Double valor, Cliente cliente, Barbeiro profissional, Servico servico) {
+    public Agendamento(Long id, LocalDate data, LocalTime horaInicio, LocalTime horaFim, Integer status, Double valor, Cliente cliente, Barbeiro profissional, Servico servico) {
         this.id = id;
-        this.dataHoraInicio = dataHoraInicio;
-        this.dataHoraFim = dataHoraFim;
+        this.data = data;
+        this.horaInicio = horaInicio;
+        this.horaFim = horaFim;
         this.status = status;
         this.valor = valor;
         this.cliente = cliente;
         this.profissional = profissional;
         this.servico = servico;
+
     }
 }

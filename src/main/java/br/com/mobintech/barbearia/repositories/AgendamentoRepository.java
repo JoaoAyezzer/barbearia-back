@@ -20,6 +20,4 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
     Agendamento findByProfissional(Barbeiro profissional);
     @Transactional(readOnly = true)
     Agendamento findByServico(Servico servico);
-    @Transactional(readOnly = true)
-    Agendamento findByDataHoraInicio(LocalDateTime dataHoraInicio);
 }

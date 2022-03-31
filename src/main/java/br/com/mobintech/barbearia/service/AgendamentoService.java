@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -41,14 +42,12 @@ public class AgendamentoService {
                 .collect(Collectors.toList());
     }
 
-    public AgendamentoDTO findById(Long id){
+    public Agendamento findById(Long id){
         Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
-        return new AgendamentoDTO(
-                agendamento.orElseThrow(
+        return agendamento.orElseThrow(
                     () -> new ObjectNotfoundException(
                         "Agendamento com Id: " + id + ", não encontrado na base de dados"
                     )
-            )
         );
     }
     public Agendamento update(Long id, AgendamentoNewDTO agendamentoNewDTO){
@@ -64,11 +63,12 @@ public class AgendamentoService {
         Servico servico = servicoService.findById(dto.getIdServico());
         Cliente cliente = clienteService.findById(dto.getIdCliente());
         Barbeiro profissional = barbeiroService.findById(dto.getIdProfissional());
-        LocalDateTime dataHoraFim = dto.getDataInicial().plusMinutes(servico.getTempoEmMinutos().getMinute());
+        LocalTime horaFim = dto.getHoraInicio().plusMinutes(servico.getTempoEmMinutos().getMinute());
         Agendamento agendamento = new Agendamento(
                 dto.getId(),
-                dto.getDataInicial(),
-                dataHoraFim,
+                dto.getData(),
+                dto.getHoraInicio(),
+                horaFim,
                 (dto.getStatus() == null) ? StatusAgendamento.AGENDADO.getCod() : dto.getStatus(),
                 servico.getValor(),
                 cliente,
@@ -79,10 +79,4 @@ public class AgendamentoService {
         return agendamento;
     }
 
-    public Agendamento findByData(String data) {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm");
-        LocalDateTime dataAgendamento = LocalDate.parse(data, formatter).atStartOfDay();
-        Agendamento agendamento = agendamentoRepository.findByDataHoraInicio(dataAgendamento);
-        return agendamento;
-    }
 }

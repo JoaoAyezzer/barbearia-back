@@ -1,9 +1,8 @@
 package br.com.mobintech.barbearia.controller;
 
-import br.com.mobintech.barbearia.dto.AgendamentoDTO;
-import br.com.mobintech.barbearia.dto.AgendamentoNewDTO;
-import br.com.mobintech.barbearia.models.Agendamento;
-import br.com.mobintech.barbearia.service.AgendamentoService;
+import br.com.mobintech.barbearia.dto.TipoPagamentoDTO;
+import br.com.mobintech.barbearia.models.TipoPagamento;
+import br.com.mobintech.barbearia.service.TIpoPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,41 +14,41 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "agendamentos")
-public class AgendamentoController {
+@RequestMapping(value = "tipo-pagamento")
+public class TipoPagamentoController {
+
     @Autowired
-    private AgendamentoService service;
+    private TIpoPagamentoService service;
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody AgendamentoNewDTO dto){
-        Agendamento agendamento = service.create(dto);
+    public ResponseEntity<Void> create(@Valid @RequestBody TipoPagamentoDTO tipoPagamentoDTO){
+        TipoPagamento tipoPagamento = service.create(tipoPagamentoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(agendamento.getId())
+                .buildAndExpand(tipoPagamento.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @GetMapping
-    public ResponseEntity< List<AgendamentoDTO> > findAll(){
+    public ResponseEntity< List<TipoPagamento> > findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
-
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AgendamentoDTO> findById(@PathVariable Long id){
-        Agendamento agendamento = service.findById(id);
-        return ResponseEntity.ok().body(new AgendamentoDTO(agendamento));
+    public ResponseEntity< TipoPagamento > findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void>update(@Valid @RequestBody AgendamentoNewDTO dto, @PathVariable Long id){
-        service.update(id, dto);
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody TipoPagamentoDTO tipoPagamentoDTO){
+        service.update(id, tipoPagamentoDTO);
         return ResponseEntity.noContent().build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 }
