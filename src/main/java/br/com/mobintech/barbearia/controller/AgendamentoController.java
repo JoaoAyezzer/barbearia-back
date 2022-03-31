@@ -37,8 +37,11 @@ public class AgendamentoController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<AgendamentoDTO> findById(@PathVariable Long id){
-        Agendamento agendamento = service.findById(id);
-        return ResponseEntity.ok().body(new AgendamentoDTO(agendamento));
+        return ResponseEntity.ok().body(service.findById(id));
+    }
+    @GetMapping(value = "/data/{data}")
+    public ResponseEntity<Agendamento> findByData(@PathVariable String data){
+        return ResponseEntity.ok().body(service.findByData(data));
     }
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void>update(@Valid @RequestBody AgendamentoNewDTO dto, @PathVariable Long id){
