@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "tipos_pagamentos")
 public class TipoPagamento implements Serializable {
@@ -25,10 +25,15 @@ public class TipoPagamento implements Serializable {
     @Column
     private Float taxaRecebimento;
     @Column
-    @JsonFormat(pattern="dd/MM/yyyy", timezone = "America/Sao_Paulo")
-    private Date prazoRecebimento;
+    private Long prazoRecebimento;
     @Column
     @OneToMany(mappedBy = "tipoPagamento")
     private List<Pagamento> pagamentos;
 
+    public TipoPagamento(Long id, String nome, Float taxaRecebimento, Long prazoRecebimento) {
+        this.id = id;
+        this.nome = nome;
+        this.taxaRecebimento = taxaRecebimento;
+        this.prazoRecebimento = prazoRecebimento;
+    }
 }

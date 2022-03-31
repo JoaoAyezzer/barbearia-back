@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,7 +29,10 @@ public class Pagamento implements Serializable {
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(pattern="dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
-    private LocalDateTime dataRecebimento;
+    private LocalDateTime dataPagamento;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private LocalDate dataRecebimento;
     @ManyToOne
     @JoinColumn(name = "tipo_pagamento_id")
     private TipoPagamento tipoPagamento;
