@@ -1,6 +1,7 @@
 package br.com.mobintech.barbearia.controller;
 
 import br.com.mobintech.barbearia.dto.PagamentoDTO;
+import br.com.mobintech.barbearia.dto.PagamentoNewDTO;
 import br.com.mobintech.barbearia.models.Pagamento;
 import br.com.mobintech.barbearia.service.PagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class PagamentoController {
     private PagamentoService service;
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody PagamentoDTO pagamentoDTO){
-        Pagamento pagamento = service.create(pagamentoDTO);
+    public ResponseEntity<Void> create(@Valid @RequestBody PagamentoNewDTO newDTO){
+        Pagamento pagamento = service.create(newDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(pagamento.getId())
@@ -39,8 +40,8 @@ public class PagamentoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody PagamentoDTO pagamentoDTO){
-        service.update(id, pagamentoDTO);
+    public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody PagamentoNewDTO newDTO){
+        service.update(id, newDTO);
         return ResponseEntity.noContent().build();
     }
 

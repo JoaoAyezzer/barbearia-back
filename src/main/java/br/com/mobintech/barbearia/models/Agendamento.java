@@ -47,8 +47,7 @@ public class Agendamento implements Serializable {
     @ManyToOne
     @JoinColumn(name = "SERVICO_ID")
     private Servico servico;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PAGAMENTO_ID", referencedColumnName = "id")
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="agendamento")
     private Pagamento pagamento;
     @ManyToMany
     @JoinTable(name = "PRODUTO_AGENDAMENTO", joinColumns = @JoinColumn(name = "agendamento_id"), inverseJoinColumns = @JoinColumn(name = "produto_id"))

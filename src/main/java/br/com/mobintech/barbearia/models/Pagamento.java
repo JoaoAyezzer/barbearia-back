@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private Double valorBruto;
@@ -33,9 +32,12 @@ public class Pagamento implements Serializable {
     @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dataRecebimento;
     @ManyToOne
-    @JoinColumn(name = "tipo_pagamento_id")
+    @JoinColumn(name = "TIPO_PAGAMENTO_ID")
     private TipoPagamento tipoPagamento;
-    @OneToOne(mappedBy = "pagamento")
+    @JsonIgnore
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "AGENDAMENTO_ID")
     private Agendamento agendamento;
 
     public Pagamento(Long id, Double valorBruto, Double valorLiquido, LocalDateTime dataPagamento, LocalDate dataRecebimento, TipoPagamento tipoPagamento, Agendamento agendamento) {

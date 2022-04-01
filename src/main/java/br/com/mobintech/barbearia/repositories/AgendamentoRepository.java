@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -20,4 +21,6 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
     Agendamento findByProfissional(Barbeiro profissional);
     @Transactional(readOnly = true)
     Agendamento findByServico(Servico servico);
+    @Transactional(readOnly = true)
+    Agendamento findByData(LocalDate data);
 }

@@ -1,14 +1,11 @@
 package br.com.mobintech.barbearia.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,6 +23,7 @@ public class TipoPagamento implements Serializable {
     private Float taxaRecebimento;
     @Column
     private Long prazoRecebimento;
+    @JsonIgnore
     @Column
     @OneToMany(mappedBy = "tipoPagamento")
     private List<Pagamento> pagamentos;

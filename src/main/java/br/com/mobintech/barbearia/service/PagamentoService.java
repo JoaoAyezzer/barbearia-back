@@ -1,13 +1,11 @@
 package br.com.mobintech.barbearia.service;
 
-import br.com.mobintech.barbearia.dto.AgendamentoNewDTO;
 import br.com.mobintech.barbearia.dto.PagamentoDTO;
-import br.com.mobintech.barbearia.dto.TipoPagamentoDTO;
+import br.com.mobintech.barbearia.dto.PagamentoNewDTO;
 import br.com.mobintech.barbearia.models.Agendamento;
 import br.com.mobintech.barbearia.models.Pagamento;
 import br.com.mobintech.barbearia.models.TipoPagamento;
 import br.com.mobintech.barbearia.repositories.PagamentoRepository;
-import br.com.mobintech.barbearia.repositories.TipoPagamentoRepository;
 import br.com.mobintech.barbearia.service.exceptions.ObjectNotfoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +25,8 @@ public class PagamentoService {
     @Autowired
     private AgendamentoService agendamentoService;
 
-    public Pagamento create(PagamentoDTO pagamentoDTO) {
-        return repository.save(fromDTO(pagamentoDTO));
+    public Pagamento create(PagamentoNewDTO dto) {
+        return repository.save(fromDTO(dto));
     }
 
     public List<PagamentoDTO> findAll() {
@@ -46,23 +44,24 @@ public class PagamentoService {
                 )
         );
     }
-    public void update(Long id, PagamentoDTO pagamentoDTO) {
+    public void update(Long id, PagamentoNewDTO dto) {
         findById(id);
-        pagamentoDTO.setId(id);
-        repository.save(fromDTO(pagamentoDTO));
+        repository.save(fromDTO(dto));
     }
+
     public void delete(Long id) {
+        findById(id);
         repository.deleteById(id);
     }
 
-    public Pagamento fromDTO(PagamentoDTO pagamentoDTO) {
-        Agendamento agendamento = agendamentoService.findById(pagamentoDTO.getIdAgendamento());
-        TipoPagamento tipoPagamento = tipoPagamentoService.findById(pagamentoDTO.getIdTipoPagamento());
+    public Pagamento fromDTO(PagamentoNewDTO dto ) {
+        Agendamento agendamento = agendamentoService.findById(dto.getIdAgendamento());
+        TipoPagamento tipoPagamento = tipoPagamentoService.findById(dto.getIdTipoPagamento());
         LocalDateTime data = LocalDateTime.now();
         Double valorLiquido = agendamento.getValor() - (tipoPagamento.getTaxaRecebimento() * (agendamento.getValor() /100));
         LocalDate dataRecebimento = LocalDate.from(data.plusDays(tipoPagamento.getPrazoRecebimento()));
         Pagamento pagamento = new  Pagamento(
-                pagamentoDTO.getId(),
+                dto.getId(),
                 agendamento.getValor(),
                 valorLiquido,
                 data,

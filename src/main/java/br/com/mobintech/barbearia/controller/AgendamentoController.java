@@ -37,19 +37,14 @@ public class AgendamentoController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<AgendamentoDTO> findById(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.findById(id));
-    }
-    @GetMapping(value = "/data/{data}")
-    public ResponseEntity<Agendamento> findByData(@PathVariable String data){
-        return ResponseEntity.ok().body(service.findByData(data));
+        return ResponseEntity.ok().body(new AgendamentoDTO(service.findById(id)));
     }
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void>update(@Valid @RequestBody AgendamentoNewDTO dto, @PathVariable Long id){
         service.update(id, dto);
         return ResponseEntity.noContent().build();
     }
-
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
