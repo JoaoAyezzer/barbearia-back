@@ -25,6 +25,7 @@ src/main/resources/application.properties
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
+/resources/
 /dist/
 /nbdist/
 /.nb-gradle/
