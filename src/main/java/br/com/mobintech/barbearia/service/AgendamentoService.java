@@ -50,6 +50,13 @@ public class AgendamentoService {
                     )
         );
     }
+    public Agendamento findByData(LocalDate data){
+        return agendamentoRepository.findByData(data).orElseThrow(
+                () -> new ObjectNotfoundException(
+                        "Agendamento para a data: " + data + ", não encontrado na base de dados"
+                )
+        );
+    }
     public Agendamento update(Long id, AgendamentoNewDTO agendamentoNewDTO){
         findById(id);
         agendamentoNewDTO.setId(id);

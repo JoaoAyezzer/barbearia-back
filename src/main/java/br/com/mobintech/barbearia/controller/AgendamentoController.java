@@ -4,6 +4,7 @@ import br.com.mobintech.barbearia.dto.AgendamentoDTO;
 import br.com.mobintech.barbearia.dto.AgendamentoNewDTO;
 import br.com.mobintech.barbearia.models.Agendamento;
 import br.com.mobintech.barbearia.service.AgendamentoService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,7 @@ import java.util.List;
 public class AgendamentoController {
     @Autowired
     private AgendamentoService service;
+    private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("ddMMyyyy");
 
     @PostMapping
     public ResponseEntity<Void> create(@Valid @RequestBody AgendamentoNewDTO dto){
@@ -34,7 +39,11 @@ public class AgendamentoController {
     public ResponseEntity< List<AgendamentoDTO> > findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
-
+    @GetMapping(value = "/data/{data}")
+    public ResponseEntity<AgendamentoDTO> findByData( @PathVariable String data){
+        System.out.println(LocalDate.parse(LocalDate.parse(data).format(dateFormat)));
+        return ResponseEntity.ok().body(new AgendamentoDTO(service.findByData(LocalDate.parse(LocalDate.parse(data).format(dateFormat)))));
+    }
     @GetMapping(value = "/{id}")
     public ResponseEntity<AgendamentoDTO> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(new AgendamentoDTO(service.findById(id)));

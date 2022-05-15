@@ -10,17 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Repository
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
 
     @Transactional(readOnly = true)
-    Agendamento findByCliente(Cliente cliente);
+    Optional<Agendamento> findByCliente(Cliente cliente);
     @Transactional(readOnly = true)
-    Agendamento findByProfissional(Barbeiro profissional);
+    Optional<Agendamento> findByProfissional(Barbeiro profissional);
     @Transactional(readOnly = true)
-    Agendamento findByServico(Servico servico);
+    Optional<Agendamento> findByServico(Servico servico);
     @Transactional(readOnly = true)
-    Agendamento findByData(LocalDate data);
+    Optional<Agendamento> findByData(LocalDate data);
 }
