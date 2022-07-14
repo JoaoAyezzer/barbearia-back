@@ -31,6 +31,7 @@ public class ClienteDTO implements Serializable {
     private  Integer perfilDeUsuario;
     private  String telefone;
 
+
     public ClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
